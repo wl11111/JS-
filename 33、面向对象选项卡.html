@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#box div,#box2 div{
+				width:100px;
+				height:100px;
+				display:none;
+				border:1px solid #000;
+			}
+			#box .active,#box2 .active{
+				display:block;
+			}
+			#box .ac,#box2 .ac{
+				background:yellow;
+			}
+		</style>
+	</head>
+	<body>
+		<!--
+			ES6:
+			let:
+			let 相当于var 作声明用，
+			let声明时不会在window下注册这个变量（不会放在window下的属性）
+			没有预解析，先申明再使用，不然会报错
+			支持块级作用域{},即作用域是以{}区分的，不像var是以function区分的。
+			如：
+				for(var i=0;i<div.length;i++){
+					div[i].click = function(){
+						函数里面取不到对应的i
+					}
+				}
+				改为
+				for(let i=0;i<div.length;i++){
+					div[i].click = function(){
+						函数里面可以取到对应的i
+					}
+				}
+				
+			面向对象选项卡:
+				1、把变量提出来
+				2、拆function
+				3、变量变属性，函数变方法
+				4、修正this指向
+		-->
+		<div id="box">
+			<input class="ac" type="button" value="按钮一"/>
+			<input type="button" value="按钮二"/>
+			<input type="button" value="按钮三"/>
+			<div class="active">111111</div>
+			<div>222222</div>
+			<div>333333</div>
+		</div>
+		
+		<div id="box2">
+			<input class="ac" type="button" value="按钮一"/>
+			<input type="button" value="按钮二"/>
+			<input type="button" value="按钮三"/>
+			<div class="active">111111</div>
+			<div>222222</div>
+			<div>333333</div>
+		</div>
+		<input id="btn1" type="button" value="第一个关"/>
+		<input id="btn2" type="button" value="第二个开"/>
+		<input id="btn3" type="button" value="全开"/>
+		<input id="btn4" type="button" value="取反"/>
+	</body>
+		
+	
+	<script>
+		//面向对象的选项卡
+		function Tab(box){
+			this.box = document.getElementById(box);
+			this.btns = this.box.getElementsByTagName("input");
+			this.divs = this.box.getElementsByTagName("div");
+			this.prev = this.btns[0];
+			this.prev2 = this.divs[0];
+			this.timer = null;
+			this.num = 0;
+			this.onOff = false;
+		}
+		Tab.prototype.change = function(i){
+			this.prev.className = '';
+			this.prev2.className = '';
+			this.btns[i].className = "ac";
+			this.divs[i].className = "active"
+			this.prev = this.btns[i];
+			this.prev2 = this.divs[i];
+		}
+		Tab.prototype.init = function(Event){
+			var _this = this;
+			for(let i=0;i<this.btns.length;i++){
+				this.btns[i][Event] = function(){
+					_this.change(i);
+				}
+			}
+		}
+		Tab.prototype.autoPlay = function(){
+			var _this = this;
+			clearInterval(this.timer);
+			this.timer = setInterval(function(){
+				_this.num++;
+				_this.change(_this.num%=3);
+			},500);
+			this.onOff = true;
+		}
+		Tab.prototype.Stop = function(){
+			clearInterval(this.timer);
+			this.onOff = false;
+		}
+		Tab.prototype.isOnoff = function(){
+			if(this.onOff){
+				this.Stop();
+			}else{
+				this.autoPlay();
+			}
+		}
+		var t = new Tab('box');
+		t.init('onclick');
+		t.autoPlay();
+		var t2 = new Tab('box2');
+		t2.init('onclick');
+		//t.init('onmouseover');
+		var btn1 = document.getElementById('btn1');
+		btn1.onclick = function(){
+			t.Stop();
+		}
+		var btn2 = document.getElementById('btn2');
+		btn2.onclick = function(){
+			t2.autoPlay();
+		}
+		var btn3 = document.getElementById('btn3');
+		btn3.onclick = function(){
+			t.autoPlay();
+			t2.autoPlay();
+		}
+		var btn4 = document.getElementById('btn4');
+		btn4.onclick = function(){
+			t.isOnoff();
+			t2.isOnoff();
+		}
+	</script>
+</html>

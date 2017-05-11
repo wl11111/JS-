@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<!--
+			包装对象：
+				当简单类型的数据去调用某个属性或方法时，那么系统会偷偷的在内部将简单类型的系统对象的属性或方法查找（调用）出来，输出之后（使用之后），这个对象自动被销毁。
+				
+				注意：包装对象的属性只能读不能写。
+				做好事不留名。
+			
+			toString:
+				把当前数据转为字符串的方法，每个数据类型都有
+				使用alert()系统会调用toString方法
+				判断一个数组是个数组：
+					var arr = [];
+					Object.prototype.tostring.call(arr) === '[object Array]' 是true就是数组
+					同理：string等。
+				
+				
+			call:
+				function fn(a,b,c){
+					//alert(this);
+					alert(a+b+c)
+				}
+				可以用来调用函数：如：fn.call();
+				改变this指向，如：fn.call(document,5,6,7),this就指向document了；
+				参数：第一个参数：this的指向
+						第二个参数及之后：实参（可以有若干个）
+				
+				类数组转数组：
+						Array.from(lis)
+						或
+						var lis = document.getElementsByTagName('li');
+						Array.prototype.slice.call(lis);
+						
+			apply:
+				function fn(a,b,c){
+						//alert(this);
+						alert(a+b+c)
+					}
+				只有2个参数
+				第一个参数：修改this指向；
+				第二个参数：是个数组，实参放在数组里；
+				fn.apply(document,[5,6,7])
+		-->
+	</body>
+</html>
