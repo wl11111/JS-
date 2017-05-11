@@ -16,7 +16,6 @@
 			
 			构造函数（工厂函数）：构造对象的函数（函数return一个对象）；//实例（实例化对象|过程）；
 			
-			
 			挂在对象下的变量叫属性；
 			挂在对象下的函数叫方法；
 			非空对象才能加属性；
@@ -34,10 +33,12 @@
 				专门运算函数
 				1、如果不传参就是调用函数；如：new fn;调用函数；
 				2、new fn();
-					前面写new，fn函数里不写renturn时，那么默认fn整个函数就是个对象，fn函数里的this指向fn{}本身；
+					fn函数里的this指向fn{}本身；
+					前面写new，fn函数里不写renturn时，那么默认fn整个函数就是个对象；
 					如果fn函数里写了return，return后是对象类型，那么fn{}函数的返回值就是那个对象；如果return后不是对象类型，那么fn{}函数的返回值就是new后的那个对象（即fn{}）;			
 			
 			（只有用new写的才能叫做实例化对象(即p)及构造函数(即fn)。var p = new fn(obj);）
+			（fn又是Function的实例化对象，比较特殊，Function.prototype.say = function(){}）
 			
 			原型:
 					prototype；
