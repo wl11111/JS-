@@ -15,6 +15,7 @@
 			toString:
 				把当前数据转为字符串的方法，每个数据类型都有
 				使用alert()系统会调用toString方法
+				数据类型为Object的，调用toString()比较特殊
 				判断一个数组是个数组：
 					var arr = [];
 					Object.prototype.tostring.call(arr) === '[object Array]' 是true就是数组
