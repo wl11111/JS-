@@ -33,7 +33,9 @@
 						2、方法继承：
 							function Fn(){};
 							fn.prototype = drag.ptototype;
-							drag2.ptototype = new fn;
+							var ph = new fn();
+							drag2.ptototype = ph;
+							那么修改drag2下的属性及方法时，就不会影响到drag
 		-->
 	</body>
 </html>
