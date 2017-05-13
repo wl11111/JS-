@@ -3,6 +3,17 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
+		<style>
+			#box{
+				width:100px;
+				height: 100px;
+				background: red;
+				position: absolute;
+				left:0;
+				top:0;
+			}	
+</style>
+
 	</head>
 	<body>
 		<!--
@@ -33,9 +44,9 @@
 				专门运算函数
 				1、如果不传参就是调用函数；如：new fn;调用函数；
 				2、new fn();
-					fn函数里的this指向fn{}本身；
-					前面写new，fn函数里不写renturn时，那么默认fn整个函数就是个对象；
-					如果fn函数里写了return，return后是对象类型，那么fn{}函数的返回值就是那个对象；如果return后不是对象类型，那么fn{}函数的返回值就是new后的那个对象（即fn{}）;			
+					fn函数里的this指向对象fn{}本身；
+					前面写new，fn函数里不写renturn时，那么默认返回fn{}整个函数对象；
+					如果fn函数里写了return且return后是对象类型，那么fn{}函数的返回值就是return后的那个对象；如果return后不是对象类型，那么fn{}函数的返回值就是new后的即fn{}对象;			
 			
 			（只有用new写的才能叫做实例化对象(即p)及构造函数(即fn)。var p = new fn(obj);）
 			（fn又是Function的实例化对象，比较特殊，Function.prototype.say = function(){}）
@@ -61,6 +72,8 @@
 					通过原型链找构造函数找原型；
 			顺序：实例化对象自己->构造函数原型->object;
 		-->
+		<div id="box"></div>
+
 		<script>
 			/*function fn(name,age,word){//工厂函数（构造函数）
 				var obj = {};//原材料
@@ -94,7 +107,7 @@
 			}
 			new tab;*/
 			
-			function fn(name){
+			/*function fn(name){
 				
 			}
 			Object.prototype.say = function(){
@@ -102,7 +115,39 @@
 			}
 			var p = new fn('咱三');
 			p.say()
-			console.dir(p);
+			console.dir(p);*/
+			
+			
+			//面向对象的拖拽
+			function Drag(id){
+				this.box = document.getElementById(id);
+				this.disX = 0;
+				this.disY = 0;
+				var _this = this;
+				this.box.onmousedown = function(ev){
+					_this.down(ev);
+					document.onmousemove = function(ev){
+						_this.move(ev);
+					}
+					document.onmouseup = function(){
+						_this.up();
+					}
+				}
+			}
+			Drag.prototype.down = function(ev){
+				this.disX = ev.pageX - this.box.offsetLeft;
+				this.disY = ev.pageY - this.box.offsetTop;
+			}
+			Drag.prototype.move = function(ev){
+				this.box.style.left = ev.pageX - this.disX + 'px';
+				this.box.style.top = ev.pageY - this.disY + 'px';
+			}
+			
+			Drag.prototype.up = function(){
+				document.onmousemove = document.onmouseup = null;
+			}
+			new Drag('box');
+
 		</script>
 	</body>
 </html>
