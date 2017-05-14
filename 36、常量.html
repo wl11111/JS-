@@ -10,8 +10,8 @@
 			
 			const : 常量；
 						const a =1;定义常量后是不能被修改的，要是继续写a=2修改，就会报错；
-						const是没有预解析的;
-						声明必须得赋值，不然会报错；
+						const、let是没有预解析的;
+						const声明必须得赋值，不然会报错；
 						同一个作用域下 let 与  const 不能二次声明：
 								如：const a=1;const a=2;会报错；
 								
@@ -64,7 +64,7 @@
 					
 		-->
 		<script>
-			function Person(name){
+			/*function Person(name){
 				this.name = name;
 			}
 			Person.prototype = {
@@ -77,7 +77,11 @@
 				}
 			}
 			var p = new Person('张三');
-			console.log(p)
+			console.log(p)*/
+			
+			let c;
+			//c = 2;
+			console.log(c)
 		</script>
 	</body>
 </html>
