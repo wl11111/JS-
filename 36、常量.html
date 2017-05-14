@@ -53,17 +53,18 @@
 							this.name = name;
 							this.age = age;
 							this.say = function(){
-								alert('优先级高')
+								alert('优先级高'); // console.log(p.say == p2.say) -> false;此处方法是私有的
 							}
 						}
 						//正常的say函数
 						say(){
-							alert('优先级低');
+							alert('优先级低'); // console.log(p.say == p2.say) -> true;此处方法是公用的
 						}
 						//其他函数
 						...
 					}
 					var p = new Person('张三',80);
+					var p2 = new Person('李四',80);
 					p.say();//alert结果为：'优先级高'
 					
 		-->
