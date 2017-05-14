@@ -65,10 +65,11 @@
 					
 		-->
 		<script>
-			/*function Person(name){
+			function Person(name){
 				this.name = name;
 			}
 			Person.prototype = {
+				//人为修正constructor指向为Person，不然指向就为Object了；
 				constructor:Person,
 				say:function(){
 					alert(1234);
@@ -78,7 +79,7 @@
 				}
 			}
 			var p = new Person('张三');
-			console.log(p)*/
+			console.log(p.constructor)
 			
 		</script>
 	</body>
