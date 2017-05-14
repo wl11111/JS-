@@ -52,16 +52,19 @@
 						constructor(name,age){
 							this.name = name;
 							this.age = age;
+							this.say = function(){
+								alert('优先级高')
+							}
 						}
 						//正常的say函数
 						say(){
-							alert('');
+							alert('优先级低');
 						}
 						//其他函数
 						...
 					}
 					var p = new Person('张三',80);
-					p.say();
+					p.say();//alert结果为：'优先级高'
 					
 		-->
 		<script>
