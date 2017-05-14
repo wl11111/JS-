@@ -17,15 +17,15 @@
 								
 			hasOwnProperty() :
 					对象.hasOwnProperty(属性名)；
-					看某个属性是不是这个对象自身的属性；
+					查看某个属性是不是这个对象自身的属性；
 					返回值是布尔值：是，true；否,false;
 					如：p.hasOwnProperty('name') -> true:就是自己的；
-						要是say()函数写在prototype下，那么p.hasOwnProperty('say')的结果就是false;
+						要是say()函数写在prototype下(成为共有的东西)，那么p.hasOwnProperty('say')的结果就是false;
 			
 			
 			constructor:
 					对象.constructor;
-					看某个对象是哪个构造函数构造出来的；(虚的，提供查找构造函数的线索，只能作为参考，因为constructor本身容易被修改，所以在可能被修改时，人为的写constructor的正确属性,方便维护)
+					查看某个对象是哪个构造函数构造出来的；(虚的，提供查找构造函数的线索，只能作为参考，因为constructor本身容易被修改，所以在可能被修改时，人为的写constructor的正确属性,方便维护)
 					var arr = [];
 					console.log(arr.constructor == Array) -> true;
 					
