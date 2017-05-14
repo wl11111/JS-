@@ -16,8 +16,8 @@
 			toString:
 				把当前数据转为字符串的方法，每个数据类型都有
 				使用alert()系统会调用toString方法
-				数据类型为Object的，调用toString()比较特殊
-				判断一个数组是个数组：
+				数据类型为Object的，调用toString()比较特殊,结果为[object Object]
+				判断一个数据是否为一个数组：（借用Object的方法）
 					var arr = [];
 					Object.prototype.toString.call(arr) === '[object Array]' 是true就是数组
 					同理：String等。
@@ -25,7 +25,7 @@
 				
 			当声明一个函数的时候，就会有一些属性或者方法
 			其中有2个方法，一个叫call,另一个叫apply
-			可以用来借方法：
+			可以用来 借方法：
 			call:
 				function fn(a,b,c){
 					//alert(this);
@@ -36,11 +36,11 @@
 				参数：第一个参数：this的指向
 						第二个参数及之后：实参（可以有若干个）
 				
-				类数组转数组：
-						Array.from(lis)
-						或
-						var lis = document.getElementsByTagName('li');
-						lis = Array.prototype.slice.call(lis);
+					类数组转为数组：
+							Array.from(lis)
+							或
+							var lis = document.getElementsByTagName('li');
+							lis = Array.prototype.slice.call(lis);
 						
 			apply:
 				function fn(a,b,c){
