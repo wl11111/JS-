@@ -47,18 +47,17 @@
 							drag2.ptototype = ph;
 				
 				问题：			
-					如果for in遇到是复杂类型的时候，那么还是赋址；
+					如果for in遇到是复杂类型(如：{}、[])的时候，那么还是赋址；
 				解决：
-					只要遇到对象类型，就以此对象为基准，再 for in 一下，直到不是对象类型。
+					for in时只要遇到对象类型，就以此对象为基准，再 for in 一下，直到不是对象类型。
 						function extend(obj){  //深拷贝；
 							var o = Object.prototype.toString.call(obj) == '[object Object]' ?{}:[];
 							for(var attr in obj){
 								if(typeof obj[attr] == 'object'){
 									o[attr] = extend(obj[attr]);
 								}else{
-									
+									o[attr] = obj[attr];
 								}
-								o[attr] = obj[attr];
 							}
 							return o;
 						}
