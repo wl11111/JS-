@@ -16,6 +16,9 @@
 				自身有父辈的一些特征，也有自己的一些特征；
 				1、拷贝继承：
 						1、属性继承：调用父类的构造函数且使用call来修改this指向；
+									如：function drag2(id){
+										drag.call(this,id);//子类drag2调用父类drag且改变this指向为drg2;
+									}
 						2、方法继承：将父类的原型上的方法通过for in赋值给子类
 				
 					赋值：简单类型的，是赋值；
@@ -28,14 +31,42 @@
 									arr = [1,2,3,4]
 							（for in 可以解决浅拷贝的 赋址 问题）
 							
-				2、类式继承：
+				2、类式继承：（性能好）
 						1、属性继承：调用父类的构造函数并使用call来修改this指向；
 						2、方法继承：
-							function Fn(){};
+							function Fn(){};//空的构造函数
 							fn.prototype = drag.ptototype;
-							var ph = new fn();
+							var ph = new fn();//新建了一个空间
 							drag2.ptototype = ph;
 							那么修改drag2下的属性及方法时，就不会影响到drag
+							
+				3、对象继承：
+						function Fn(){};//空的构造函数
+							fn.prototype = drag;
+							var ph = new fn();//新建了一个空间
+							drag2.ptototype = ph;
+				
+				问题：			
+					如果for in遇到是复杂类型的时候，那么还是赋址；
+				解决：
+					只要遇到对象类型，就以此对象为基准，再 for in 一下，直到不是对象类型。
+						function extend(obj){  //深拷贝；
+							var o = Object.prototype.toString.call(obj) == '[object Object]' ?{}:[];
+							for(var attr in obj){
+								if(typeof obj[attr] == 'object'){
+									o[attr] = extend(obj[attr]);
+								}else{
+									
+								}
+								o[attr] = obj[attr];
+							}
+							return o;
+						}
+					或：
+						var obj2 = JSON.parse(JSON.stringify(obj)); //也能实现上述效果(深拷贝)，但有缺陷，函数、undefined无法转；且不兼容。
+					或：
+						var obj3 = Object.assign(obj,obj2);//浅拷贝；可以得到obj与obj2的特性；
+						
 		-->
 	</body>
 </html>
