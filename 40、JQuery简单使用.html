@@ -79,10 +79,10 @@
 					$('div:first');获取第一个元素；
 					$('div:last');获取最后一个元素；
 					
-				$('prev+next');
+				$('prev + next');
 					<p></p>
 					<a></a>
-					获取prev的紧挨着的下一个next元素；//如：$('p+a')；p元素和a元素必须在一块;
+					获取prev的紧挨着的下一个next元素；//如：$('p + a')；p元素和a元素必须在一块;
 					
 					
 			属性操作：
@@ -93,12 +93,12 @@
 				
 				prop()同attr(),但有区别，是专门为复选框设计的，在判断是否被选中时，返回值是布尔值；而attr()在处理复选框返回值是checked和undefined;
 				
-				$('div').removeAttr('index');删除index属性;
+				$('#div').removeAttr('index');删除index属性;
 				
 				
 				
 			html -> innerHTML:不但能读文本也能解析标签对
-				$('div').html('<p>123</p>');显示结果：123；
+				$('#div').html('<p>123</p>');显示结果：123；
 			text -> innerText:只读文本
 				$('div').text('<p>123</p>');显示结果：<p>123</p>；
 				
@@ -131,8 +131,9 @@
 				
 			
 			index()：
+					获取索引值
 					括号不写参数，找到当前元素在父级中的索引是多少（在父级中是第几个元素节点）；
-					写参数(获取元素的范围)，找到box下当前标签为li的元素在父级中的索引是多少（在父级中是第几个元素节点）；$(this).index('.box li')
+					写参数(获取元素的条件)，找到box下当前标签为li的元素在父级中的索引是多少（在父级中是第几个元素节点）；$(this).index('.box li')
 					如：$('li').click(function(){
 						alert($(this).index());//找到li在父级ul中的索引；
 						return false;//阻止冒泡
