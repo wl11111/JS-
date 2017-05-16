@@ -51,13 +51,13 @@
 		选择器：
 				如果获取的元素是一组的话，不写下标，那么默认获取的是第一个；其他的要加下标；
 				JQ的选择器和css中是一样的
-				//潜规则变量名前加$
+				//潜规则：变量名前加$
 				如：id 获取	：var $box = $('#box');
 					class类名 获取	：var $div = $('.box');
 					
 				属性选择器：
-					1、 [attribute="value"];如：var $div = $('div[class="box"]');//通过指定的属性和值查找元素；
-					2、 [attribute*="value"];attribute里带有"value"属性的元素都会被选中；
+					1、 [attribute="value"];如：var $div = $('div[class="box"]');//通过指定的属性和值获取元素；
+					2、 [attribute*="value"];attribute里带有"value"字符的元素都会被选中；
 					3、[attribute^="value"];找到attribute里开头有"value"字符的元素；
 					4、[attribute$="value"];找到attribute里结尾有"value"字符的元素；
 					5、[attribute!="value"];找到attribute不是"value"的元素；
