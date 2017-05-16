@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<!--
+			toString:
+				转进制：
+					如：(11).toString(2) //默认10进制转其他进制：数字11转二进制->1011
+					parseInt(1011,2);//二进制1011转10进制->11
+					
+			
+			ES6继承：
+				如：
+					class Person{
+						constructor(name,age){
+							this.name = name;
+							this.age = age;
+						}
+						say(){
+							
+						}
+					}
+					//子类继承
+					class Police extends Person{
+						constructor(name,age,job){
+							super(name,age); //继承父类;super是必须写的且必须放在首位，不然会报错
+							this.job = job; //自己的属性；放在super之后写
+						}
+						//自己的方法
+						say(){
+							alert('')
+						}
+					}
+					var p2 = new Police('小明',20,'警察');
+					p2.say();
+					
+					
+			
+			jquery：
+				js的类库
+				可以解决兼容问题（不用考虑兼容了）
+				*引用jquery文件*
+				强大的选择器
+				操作DOM、ajax(数据交互)
+				jquery中文api文档手册
+				
+			选择器：
+				如果获取的元素是一组的话，那么默认获取的是第一个（不用加下标）；其他的要加下标；
+				JQ的选择器和css中是一样的
+				//潜规则变量名前加$
+				如：id 获取	：var $box = $('#box');
+					class类名 获取	：var $div = $('.box');
+					
+				属性选择器：
+					1、 [attribute="value"];如：var $div = $('div[class="box"]');//通过指定的属性和值查找元素；
+					2、 [attribute*="value"];attribute里带有"value"属性的元素都会被选中；
+					3、[attribute^="value"];找到attribute里开头有"value"字符的元素；
+					4、[attribute$="value"];找到attribute里结尾有"value"字符的元素；
+					5、[attribute!="value"];找到attribute不是"value"的元素；
+					
+				伪类选择器：
+					:eq(下标)；选择第几个元素；
+					$('div:eq(1)');选择第二个div;
+					
+				表单中获取被选中的元素：
+					$('input:checked');
+					
+				隔行变色：
+					$('div:odd');获取下标为奇数的元素（以下标计数的）；
+					$('div:even');获取下标为偶数的元素（以下标计数的）；
+					
+				:lt(下标)、:gt(下标)、:first、:last
+					$('div:lt(3)');获取下标小于3的元素；
+					$('div:gt(3)');获取下标大于3的元素；
+					$('div:first');获取第一个元素；
+					$('div:last');获取最后一个元素；
+					
+				$('prev+next');
+					<p></p>
+					<a></a>
+					获取prev的紧挨着的下一个next元素；//如：$('p+a')；p元素和a元素必须在一块;
+					
+					
+			属性操作：
+				attr -> getAttribute -> setAttribute;//操作行间属性
+				attr()括号里写一个是获取，写2个是设置属性；
+					$('#div').attr('index',1);//设置div的行间index属性为1；
+					$('#div').attr('index');//获取div的行间index属性；
+				
+				prop()同attr(),但有区别，是专门为复选框设计的，在判断是否被选中时，返回值是布尔值；而attr()在处理复选框返回值是checked和undefined;
+				
+				$('div').removeAttr('index');删除index属性;
+				
+				
+				
+			html -> innerHTML:不但能读文本也能解析标签对
+				$('div').html('<p>123</p>');显示结果：123；
+			text -> innerText:只读文本
+				$('div').text('<p>123</p>');显示结果：<p>123</p>；
+				
+			
+			
+			val() -> value://括号里不写东西就是获取value值，写就是设置value值
+				$('input:button').val();获取按钮的value值；
+				$('input:button').val('提交');设置按钮的value值为 提交；
+				
+				
+			
+			addClass()、removeClass();//添加、删除指定class名；
+			toggleClass('show');有类名show就删除类名，没有就添加类名show;
+					$('input:button').click(function(){
+						// $('div').addClass('show');//给div添加类名show；
+						// $('div').removeClass('show');//div删除类名show；
+						$('div').toggleClass('show');
+					})
+				
+				
+			
+			css();一个参数是获取属性且有单位；2个参数是设置属性且是行间样式；
+					$('div').css('width',200)；或 $('div').css('width','200px');//设置宽为200px;
+					//批量设置属性，以键值对的形式（对象）
+					$('div').css({
+						width:200,
+						border:'1px solid #000'
+					})
+				
+				
+			
+			index()：
+					括号不写参数，找到当前元素在父级中的索引是多少（在父级中是第几个元素节点）；
+					写参数(获取元素的范围)，找到box下当前标签为li的元素在父级中的索引是多少（在父级中是第几个元素节点）；$(this).index('.box li')
+					如：$('li').click(function(){
+						alert($(this).index());//找到li在父级ul中的索引；
+						return false;//阻止冒泡
+						//ev.originalEvent.cancelBulle = true;//阻止冒泡
+					})
+					
+			
+			eq(下标)：
+					$('div').eq(2);下标为2的div
+			
+		-->
+		<script>
+			console.log(parseInt(1011,2))
+		</script>
+	</body>
+</html>
