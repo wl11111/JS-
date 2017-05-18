@@ -21,6 +21,10 @@
 				
 				noGlobal
 					是undefined;低版本浏览器会修改undefined；所以有noGlobal来保证undefined不被修改；
+					
+			
+		jQuery的链式操作
+			在css函数最后return this;
 	-->
 	<div id="box">1</div>
 	<div class="con">2</div>
@@ -60,11 +64,7 @@
 						}
 					}else{//一个参数为简单形式时
 						//获取一组元素没写下标时，默认是获取第一个元素属性
-						if(this[0].style[arguments[0]]){
-							return this[0].style[arguments[0]];
-						}else{
-							return getComputedStyle(this[0])[arguments[0]];
-						}
+						return getComputedStyle(this[0])[arguments[0]];
 					}
 				}else if(arguments.length == 2){
 					//2个参数设置属性
@@ -72,6 +72,8 @@
 						this[i].style[arguments[0]] = arguments[1];
 					}
 				}
+				//为了链式操作，返回出对象
+				return this;
 			}
 		}
 		//使new jQuery.fn对象有jQuery的属性方法
@@ -88,9 +90,10 @@
 			height:'300px',
 			background:'yellow'
 		})*/
-		$div.css('background','blue');
+		$div.css('background','blue').css('border','2px solid red');
 		console.log($div.css('width'));
 		//console.log($div)
+		
 	</script>
 </body>
 </html>
