@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+				ul{
+			margin:0;
+			padding:0;
+			list-style: none;
+			width: 660px;
+			margin:50px auto;
+		}
+		li{
+			width: 150px;
+			height: 150px;
+			border:2px solid #fff;
+			float: left;
+			background-size: 100%;
+			margin-right:10px;
+			margin-bottom: 10px;
+		}
+		</style>
+	</head>
+	<body>
+		<!--
+			（1）拖拽改变窗口大小
+						限制最小尺寸
+						
+			（2）框选并移动
+		-->
+		<ul>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+		<script src="move.js"></script>
+		<script>
+			var lis = document.getElementsByTagName('li');
+			//布局转换
+			for(var i=0;i<lis.length;i++){
+				lis[i].style.left = lis[i].offsetLeft+'px';
+				lis[i].style.top = lis[i].offsetTop+'px';
+				lis[i].l=lis[i].offsetLeft;
+				lis[i].t=lis[i].offsetTop;
+			}
+			for(var i=0;i<lis.length;i++){
+				lis[i].style.position = 'absolute';
+				lis[i].style.margin = 0;
+				//添加图片
+				lis[i].style.backgroundImage = 'url(img/'+(i+1)+'.jpg)';
+				drag(lis[i]);
+			}
+			
+			
+			//拖动
+			function drag(obj){
+				obj.onmousedown = function(ev){
+					ev.preventDefault();
+					obj.style.zIndex = 10;
+					var disX = ev.clientX - this.getBoundingClientRect().left;
+					var disY = ev.clientY - this.getBoundingClientRect().top;
+					document.onmousemove = function(ev){
+						var l = ev.clientX-disX;
+						var t = ev.clientY-disY;
+						obj.style.left = l+'px';
+						obj.style.top = t+'px';
+						for(var i=0;i<lis.length;i++){
+							if(duang(obj,lis[i])&&lis[i]!=obj){
+								//碰上变黄
+								lis[i].style.borderColor = 'yellow';
+							}else{
+								//没碰上变回
+								lis[i].style.borderColor = '';
+							}
+						}
+					}
+					document.onmouseup = function(){
+						obj.style.zIndex=0;
+						var arr=[];
+						var ele = null;
+						min = Infinity;
+						for(var i=0;i<lis.length;i++){
+							if(duang(obj,lis[i])&&lis[i]!=obj){
+								//碰上,和中心最近的互换位置
+								arr.push(lis[i]);
+							}else{
+								//没碰上变回
+								lis[i].style.borderColor = '';
+								move(obj,{left:obj.l,top:obj.t},500,'linear')
+							}
+						}
+						if(arr.length){
+							arr.forEach(function(a){
+								a.style.borderColor = '';
+							})
+							for(var i=0;i<arr.length;i++){
+								var c1=Math.abs(obj.offsetLeft-arr[i].offsetLeft);
+								var c2=Math.abs(obj.offsetTop-arr[i].offsetTop);
+								d = Math.sqrt(c1*c1+c2*c2);
+								if(d<min){
+									min=d;
+									ele=arr[i];
+								}
+							}
+							ele.style.zIndex = 10;
+							move(ele,{left:obj.l,top:obj.t},500,'linear');
+							move(obj,{left:ele.l,top:ele.t},500,'linear',function(){
+								obj.l=obj.offsetLeft;
+								obj.t=obj.offsetTop;
+								ele.l=ele.offsetLeft;
+								ele.t=ele.offsetTop;
+								ele.style.zIndex = 0;
+							});
+						}
+						document.onmousemove = null;
+						document.onmouseup = null;
+					}
+				}
+			}
+			//碰撞
+			function duang(obj1,obj2){
+				var pos1 = obj1.getBoundingClientRect();
+				var pos2 = obj2.getBoundingClientRect();
+				//没碰上的情况
+				if(pos1.right<pos2.left||pos1.bottom<pos2.top||pos1.left>pos2.right||pos1.top>pos2.bottom){
+					//有一个符合就是没碰上
+					return false;
+				}else{
+					return true;
+				}	
+			}
+
+		</script>
+	</body>
+</html>
