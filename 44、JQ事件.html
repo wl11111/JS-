@@ -24,7 +24,7 @@
 					jq中的ev是二次封装的，不是原生的
 					解决：
 						先解绑，再绑定：$('#div').click(function(){
-												//off()是解绑
+												//off()用于解绑
 												$('#div2').off().click(function(ev){
 													//事件嵌套会有冒泡：
 													//阻止冒泡:
