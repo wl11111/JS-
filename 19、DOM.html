@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#div1{
+				width:200px;
+				height:200px;
+				border:2px solid #000;
+				position:absolute;
+				left:100px;
+				top:100px;
+			}
+			#div2{
+				width:50px;
+				height:50px;
+				background:#ccc;
+				position:absolute;
+				left:100px;
+				top:100px;
+			}
+		</style>
+	</head>
+	<body>
+		<!--
+			DOM:(document object model)；操作页面的方法;
+			文档对象模型：
+				1、html 本身是字符串，js解析引擎会把html解析成DOM对象，形成DOM树，由一个个节点组成，每种类型的节点的操作方法不同；
+				2、关系：兄弟、父子、祖孙
+				3、node节点：document下的结构树：html——head——body...(元素-元素节点、内容-文本节点、注释-注释节点);
+						nodeType：查看节点类型，返回是数字；
+						nodeName：查看节点名称，返回是字符串；
+						nodeValue：查看节点内容，如果没有是null,有是字符串
+					12种节点类型：常用的有：
+						元素节点		1
+						属性节点		2
+						文本节点		3
+						注释节点		8
+						文档节点		9
+				
+				12种节点类型
+				   ELEMENT_NODE 	                	1
+					ATTRIBUTE_NODE 	               2
+					TEXT_NODE 	                    	3
+					DATA_SECTION_NODE 	            4
+					ENTITY_REFERENCE_NODE 	        	5
+					ENTITY_NODE 	                	6
+					PROCESSING_INSTRUCTION_NODE 		7
+					COMMENT_NODE 	                	8
+					DOCUMENT_NODE 	                	9
+					DOCUMENT_TYPE_NODE 	           	10
+					DOCUMENT_FRAGMENT_NODE 	       	11
+					NOTATION_NODE 	               	12
+
+			4、document文档节点
+				console.log(document.nodeType)
+					nodeType:		9
+					nodeName：		#document
+					nodeValue：		null
+					
+				通过以下方法获取元素：
+					document.documentElement	————>html标签
+					document.body					————>body标签
+					document.head					————>head标签
+			
+			5、元素节点：
+					nodeType:1;
+					nodeName:标签名；
+							chrome是全大写
+					nodeValue:null;
+					
+				attributes得到的是属性集合，是个类数组，可以通过下标取值；
+				
+				以下会获取到包括换行等在内的节点：
+					parentNode——父节点
+					childNodes——第一层子节点集合，类数组，动态性（不怎么好用）
+					children——元素子节点集合，（只获取到元素标签，得到数组，好用）
+					firstChild——第一个子节点
+					lastChild——最后一个子节点
+					nextSibling——下一个子节点
+					previousSibling——上一个子节点
+				
+				classList;类名
+					div.classList.add('a')添加一个此类名;
+					div.classList.remove('b')删除一个此类名;
+					div.classList.toggle('b')有一个此类名就删除，没有就添加;
+					div.classList.contains('b');判断是否有一个此类名，有就返回true,没有就返回false;
+					
+				以下都只能获取，不能设置：
+					div.firstElementChild;父元素下的第一个子元素；没有就会返回null。
+					div.lastElementChild;父元素下的最后一个子元素；没有就会返回null。
+					node.nextElementSibling;元素节点node的下一个兄弟元素；当下一个没有就会返回null。
+					node.previousElementSibling;元素节点node的上一个兄弟元素；当上一个没有就会返回null。
+					div.children;父元素下的所有'直接'子元素，是个数组。
+					node.parentNode;获取node元素的父元素；
+				
+					innerHTML:只包括标签内的内容。
+					outerHTML：包括：自己的标签、标签内样式、内容
+					
+				6、属性节点：
+					<div id="div" class="list"></div>
+					console.log(div.attributes[0].nodeName)
+						nodeType:2
+						nodeName:属性名的字符串，小写
+						nodeValue:属性值的字符串，小写
+					
+					*属性操作：
+						.  []  getAttribute()
+						获取指定属性的属性值：div.getAttribute('id');
+						设置指定属性和属性值：div.setAttribute('class','a b');设置div的类名为'a b';
+						通过js添加的自定义属性如：div.index = 1; getAttribute()的方法获取不到，其他2中可以获取。
+						在行间添加的自定义属性，getAttribute()的方法可以获取到，其他2中不可以获取。
+					
+					7、文本节点：
+							nodeType:3
+							nodeName:#text
+							nodeValue:文本字符串
+					
+					8、注释节点：
+							nodeType:8
+							nodeName:#comment
+							nodeValue:内容
+							
+					9、节点操作：
+							1）创建节点
+									只能是document下创建
+									元素节点：
+										document.createElement('标签名')
+										如：var div = document.createElement('div');
+									文本节点：
+										document.createTextNode('文字内容')
+							2）插入节点
+									向父元素里的最后一位插入子节点；
+										元素节点：
+											父元素.appendChild(要插入的元素子节点)
+											如：document.body.appendChild(div);向body里插入一个div；
+											如果 要插入的元素节点 为已有的节点，那么会相当于剪切；
+									向父元素里的要插入的节点前插入新的节点
+										父元素.insertBefore(新元素节点,要被插入的节点)；
+										第二个参数：必须写，写null,会在最后一位插入子节点；
+										第一个参数：如果 新元素节点 为已有的节点，那么会相当于剪切；
+									
+							3）替换节点
+									父元素.replaceChild(新节点,要被替换的节点)
+							4）删除节点
+									父元素.removeChild(子节点);
+							5）克隆节点
+									要被克隆的节点.cloneNode(参数)
+									只能克隆结构，自定义属性和绑定的事件不会被克隆；
+									参数：默认false;
+											true:深克隆；包括标签内的子集
+											false:浅克隆，只能克隆自己的标签及标签内的行间样式；
+											
+			*****************************************************************************************
+			
+			1、offsetParent：找定位父级，定位属性值不能是static；
+					元素.offsetParent
+						1、元素的父级都没定位时，定位父级是body；
+						2、body的定位父级是 null；
+			
+			2、offsetLeft:
+					元素.offsetLeft
+						元素自身的左（边框）外边界到定位父级的左（边框）内边界的值，不带单位的；
+					
+			3、offsetTop:
+					元素.offsetTop
+						元素自身的上（边框）外边界到定位父级的上（边框）内边界的值，不带单位的；
+						
+			4、firefox问题：
+					元素自身有定位，当定位父级有边框且有overflow同时存在时，在获取offsetLeft（offsetTop）有问题（值为负定位父级的边框宽）;
+				
+			5、可视区宽高
+					document.documentElement.clientWidth;
+					document.body.clientWidth;		body左右会有8px的margin值，所以先设置body:margin:0;
+					
+					document.documentElement.clientHeight;
+					document.body.clientHeight;
+					
+			6、getBoundingClientRect()
+					元素.getBoundingClientRect()
+						获取元素各边界到可视区的距离；
+						6个属性
+								top:元素上外边界到可视区顶端的距离
+								bottom：元素外底边到可视区顶端的距离
+								left:元素左外边界到可视区左端的距离
+								right:元素右外边界到可视区左端的距离
+								width:元素的宽（包括边框）
+								height:元素的高（包括边框）
+								
+			7、clientWidth/clientHeight
+					元素.clientWidth/clientHeight;
+						获取元素自身内容的宽高，不包括边框，不带单位的。
+				offsetWidth/offsetHeight
+					元素.offsetWidth/offsetHeight;
+						获取元素实际的宽高，包括边框，不带单位的。
+				scrollWidth/scrollHeight
+					元素.scrollWidth/scrollHeight;
+					内容超出父级：获取元素内容宽高，不包括边框，不带单位的；
+					内容不超出父级：获取的是元素的内容宽高与clientWidth/clientHeight相同，不包括边框，不带单位的；
+				内联元素的clientWidth/clientHeight是0；
+							offsetWidth/offsetHeight是内容撑开的宽高；
+			
+			
+			8、新建文件夹
+					表示层级结构
+					多维数据
+		-->
+		
+		<div id="div1">
+			<div id="div2"></div>
+		</div>
+		
+		<script>
+			//获取元素到可视区的距离
+			var div1 = document.getElementById('div1');
+			var div2 = document.getElementById('div2');
+			function get(obj){
+				var t=0;
+				fn(obj);
+				function fn(obj){
+					if(!obj.offsetParent){
+						return;
+					}
+					t += obj.offsetTop + parseFloat(getComputedStyle(obj.offsetParent).borderTopWidth);
+					fn(obj.offsetParent);
+				}
+				return t;
+			}
+			console.log(get(div1))
+		</script>
+	</body>
+</html>
