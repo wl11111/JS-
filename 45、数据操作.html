@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<!--
+				
+				XML:是种数据格式
+				json：是种数据格式；
+				
+				AJAX:((异步)Asynchronous javascript and XML)动态请求数据，获取数据后如何根据需求去操作数据。
+						向后端取数据的一种技术
+						对于ajax请求过来的数据都是字符串，一般来说是json格式的；
+						减少服务器压力，更新数据无刷新（只刷新局部数据，不会整个页面刷新），前后端分离的一种数据交互技术（异步与服务器通信）。
+						后端文件必须运行在服务器上才能正常使用，所以要有个服务器；
+				
+				
+			ajax的数据交互：
+				
+				get:
+					通过url地址栏进行数据请求，用户的私人信息都可以在提交后被盗用。
+					因为使用url的方式去请求，所以对于每个浏览器地址栏的体积大小不一样且是有限的。
+					一般来说，get的方式不适用提交用户私人信息。
+					IE浏览器地址栏不支持中文，得转换编码：
+							encodeURI('逃') 把中文转为url码
+							decodeURI('')  把URL码转为中文
+							
+							1、var ajax = new XMLHttpRequest();
+							2、ajax.open('get','php/get.php?user='+user.value,true);//三个参数'user'是php里规定好的,默认为true，可以不写；
+							3、ajax.send();
+							4、ajax.onload = function(){
+									span.innerHTML = ajax.responseText;//请求后返回的结果
+								};
+							
+							
+				post:
+						提交可以是无限大（后端会给传输设卡）;
+						post是通过服务器发送请求，所以相对安全;
+						在send发送前设置请求头信息;
+						适用于私人信息发送、大文件传输；
+							1、var ajax = new XMLHttpRequest();//括号可以不写
+							2、ajax.open('get','php/post.php');
+							3、ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded')//urlencoded已经把中文转码了
+							4、ajax.send('pname='+txt.value);//发送的字段放在send里
+							5、ajax.onload = function(){
+									span.innerHTML = ajax.responseText;
+								}
+						
+				
+				JSON.stringify() 把js对象转为JSON格式的字符串；
+				JSON.parse()  把JSON格式的字符串转为js的对象；
+				
+				
+				
+				
+		-->
+		<!--<form action="" method="post">-->
+			姓名<input id="txt" type="text" value=""/><span id="span"></span>
+			密码<input type="password" value=""/>
+			<input id="btn" type="submit" value="提交"/>
+		<!--</form>-->
+		
+		<script>
+			var btn =document.getElementById('btn');
+			var span =document.getElementById('span');
+			var txt =document.getElementById('txt');
+			//get方法
+			/*btn.onclick = function(){
+				var ajax = new XMLHttpRequest();//括号可以不写
+				ajax.open('get','php/get.php?pname='+txt.value,true);
+				ajax.send();
+				ajax.onload = function(){
+					span.innerHTML = ajax.responseText;
+				}
+			}*/
+			
+			//post方法
+			btn.onclick = function(){
+				var ajax = new XMLHttpRequest();//括号可以不写
+				ajax.open('get','php/post.php');
+				ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded')//urlencoded已经把中文转码了
+				ajax.send('pname='+txt.value);
+				ajax.onload = function(){
+					span.innerHTML = ajax.responseText;
+				}
+			}
+			
+		</script>
+	</body>
+</html>
