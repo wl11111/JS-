@@ -43,7 +43,7 @@
 							1、var ajax = new XMLHttpRequest();//括号可以不写
 							2、ajax.open('get','php/post.php');
 							3、ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded')//urlencoded已经把中文转码了
-							4、ajax.send('pname='+txt.value);//发送的字段放在send里
+							4、ajax.send('user='+txt.value);//发送的字段放在send里
 							5、ajax.onload = function(){
 									span.innerHTML = ajax.responseText;
 								}
