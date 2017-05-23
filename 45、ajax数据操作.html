@@ -48,12 +48,47 @@
 									span.innerHTML = ajax.responseText;
 								}
 						
+						如果后台数据是xml的那么 ajax.responseText要换成 ajax.responseXML转为DOM（标签的形式） 再 利用DOM形式去获取数据;
 				
 				JSON.stringify() 把js对象转为JSON格式的字符串；
 				JSON.parse()  把JSON格式的字符串转为js的对象；
 				
 				
+				eval();
+						能把字符串尽可能的转为js代码并运行;
+						有时需要用'()'小括号包下；
+						但安全会有问题
+						
+						var str = 'alert(123)';
+						eval(str); -> 会运行alert代码
+						
+						var str = "{'name':'小明'}";
+						eval(str)  ->  报错
+						
+						var str = "({'name':'小明'})";
+						eval(str)  ->  {name:'小明'}；
+						
+						var str = "({'name':'小明'})";
+						new Function('','return'+str)(); -> {name:"小明"};//等同于eval()
+						所以：
+							JSON.parse() -> eval() -> new Function('','retuen ')();
 				
+				IE不支持innerHTML:
+					IE9及以下 : 支持text
+					IE10及以上是支持textContent
+					
+				IE8及以下不支持onload事件：
+							换成 onreadystatechange事件
+							用ajax.readyState == 4 去监控请求状态是否完成，然后执行代码；
+				
+				
+				同步与异步：
+				
+				自己封装ajax
+				
+				
+						
+					
 				
 		-->
 		<!--<form action="" method="post">-->
