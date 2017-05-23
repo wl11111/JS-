@@ -122,6 +122,31 @@
 				}
 			}
 			
+			//JQ版ajax
+			var $login_user = $('#login_user');
+			var $login_pass = $('#login_pass');
+			var $login_btn = $('#login_btn');
+			$login_btn.click(function(){
+				$.ajax({
+					url:'user.php',
+					//dataType:'json',
+					data:{
+						act:'login',
+						user:$login_user.val(),
+						pass:$login_pass.val()
+					},
+					success:function(data){
+						var data = eval('('+data+')');
+						alert(data.desc);
+						if(!data.error){
+							window.location.href = 'ajax_error.php';
+						}
+						
+					}
+				})
+				
+			})	
+			
 		</script>
 	</body>
 </html>
