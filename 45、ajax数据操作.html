@@ -86,6 +86,42 @@
 				
 				自己封装ajax
 				
+	*************************************************************************************************			
+				上传数据：
+						FormData:把传入的数据转为二进制数据；
+						file控件下有个属性叫files
+						它只有append(key,value)方法把数据上传
+								form.append('file',shuju.files[0]);
+						
+						
+					<input type="file" id="shuju"/>
+					<input type="button" id="btn"/>	
+						
+					btn.onclick = function(){
+						var ajax = new XMLHttprequest;
+						ajax.open('post','post_file.php');
+						//ajax.setRequestHeader('Content-Type','multipart/form-data');
+						//ajax.send('file='+shuju.value);//shuju.value传上去之后是个字符串，所以后端不认，无法上传；得把数据上传到服务器。
+						//ajax.send('file='+shuju.files[0]);//也不成功
+						var form = new FormData();
+						form.append('file',shuju.files[0]);
+						//form.append('user',user.value);//有多个就继续传
+						
+						
+						//上传进度,在发送之前监控
+						ajax.upload.onprogress = function(ev){
+							//ev.loaded 文件上传大小
+							//ev.toyal 文件总大小
+							//加进度条
+							div2.style.width = (ev.loaded/ev.total)*总宽 + 'px';
+						}
+						ajax.send(form);
+						
+						
+						ajax.onload = function(){
+							
+						}
+					}
 				
 						
 					
@@ -140,6 +176,7 @@
 						alert(data.desc);
 						if(!data.error){
 							window.location.href = 'ajax_error.php';
+							//window.open('ajax_error.php');
 						}
 						
 					}
