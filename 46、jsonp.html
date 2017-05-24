@@ -20,6 +20,12 @@
 							服务器语言可以访问到外域的文件，自身的文件与服务器的文件在同域，服务器文件可以直接访问到外域的文件，所以自身文件可以直接访问外域的文件；
 							弊端：东西始终是别人的，别人的东西变了，自身的也就变了；
 							
+							本地php文件：
+							<?php
+							$ymjz = file_get_contents('https://www.taobao.com');
+							//http://www.kaola.com/getSuggestKeyword.html?query=猫&size=10
+							echo $ymjz;
+							
 					3、<iframe src="http://www.baidu.com" width="100%"></iframe>
 						通过iframe的src来链接想要引入的外域文件
 						
