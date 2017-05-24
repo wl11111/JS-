@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<!--
+			同源：
+				同域名、同端口、同协议
+				
+			解决跨域名问题：
+					1、高版本浏览器配合请求头信息且给权限：header('Access-Control-Allow-Origin:*');
+						对方php文件里修改
+						<?php
+						header('Access-Control-Allow-Origin:*');//设置请求头信息且给权限
+						echo "hello world";
+						
+					2、服务器代理：
+							服务器语言可以访问到外域的文件，自身的文件与服务器的文件在同域，服务器文件可以直接访问到外域的文件，所以自身文件可以直接访问外域的文件；
+							弊端：东西始终是别人的，别人的东西变了，自身的也就变了；
+							
+					3、<iframe src="http://www.baidu.com" width="100%"></iframe>
+						通过iframe的src来链接想要引入的外域文件
+						
+					4、flash跨域
+					
+					5、jsonp:跨域
+							json + padding = jsonp
+								<script></script>
+								<script></script>
+							下面的script可以访问到上面script里面的数据；而上面的script中的数据无法访问到下面script中的数据；
+							script -> src ; 专门解析js代码（jsonp的关键标签）
+							
+							核心：1、数据必须为函数名+()，括号中为实参；如：fn({});
+									2、前端页面中的全局下，要有一个对应数据的函数（function fn(){};）
+		-->
+	</body>
+</html>
