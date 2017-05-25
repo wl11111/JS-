@@ -89,7 +89,7 @@
 			createPic();
 			
 			$(document).scroll(function(){
-				if($('li').eq(minHeight())[0].getBoundingClientRect().bottom <= window.innerHeight){
+				if($('li').eq(minHeight())[0].getBoundingClientRect().bottom <= $(window).height()){
 					if(onOff){
 						num++;
 						onOff = false;
@@ -104,10 +104,10 @@
 				}
 				console.log(onOff)
 				$.ajax({
-					url:'http://www.wookmark.com/api/json/popular?',
+					url:'http://www.wookmark.com/api/json/popular',
 					dataType:'jsonp',
-					page:num,
 					callback:'callback',
+					page:num,
 					success:function(arr){
 						$.each(arr,function(i,e){
 							var div = $('<div class="pic">');
