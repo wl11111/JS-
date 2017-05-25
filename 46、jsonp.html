@@ -81,6 +81,7 @@
 		</ul>
 		<script src="功能函数/jquery-3.2.1.js"></script>
 		<script>
+			
 			//瀑布流
 			
 			var num=0;
@@ -88,8 +89,8 @@
 			createPic();
 			
 			$(document).scroll(function(){
-				if(onOff){
-					if($('li').eq(minHeight())[0].getBoundingClientRect().bottom <= window.innerHeight){
+				if($('li').eq(minHeight())[0].getBoundingClientRect().bottom <= window.innerHeight){
+					if(onOff){
 						num++;
 						onOff = false;
 						createPic();
@@ -101,7 +102,13 @@
 				if(onOff){
 					return;
 				}
-				$.getJSON('http://www.wookmark.com/api/json/popular?callback=?&page='+num,function(arr){
+				console.log(onOff)
+				$.ajax({
+					url:'http://www.wookmark.com/api/json/popular?',
+					dataType:'jsonp',
+					page:num,
+					callback:'callback',
+					success:function(arr){
 						$.each(arr,function(i,e){
 							var div = $('<div class="pic">');
 							var img = $(`<img src="${e.preview}"/>`);
@@ -110,7 +117,18 @@
 							}
 						})
 						onOff = true;
+					}
 				})
+				/*$.getJSON('http://www.wookmark.com/api/json/popular?callback=?&page='+num,function(arr){
+						$.each(arr,function(i,e){
+							var div = $('<div class="pic">');
+							var img = $(`<img src="${e.preview}"/>`);
+							img[0].onload = function(){
+								div.append(img).appendTo($('li').eq(minHeight()));
+							}
+						})
+						onOff = true;
+				})*/
 			}
 			function minHeight(){
 				var max = Infinity;
