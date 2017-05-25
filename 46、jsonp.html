@@ -3,6 +3,28 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
+		<style>
+			*{
+				margin:0;
+				padding:0;
+			}
+			ul{
+				width: 1000px;
+				list-style: none;
+				margin: 0 auto;
+			}
+			li{
+				width: 240px;
+				float: left;
+				margin: 5px;
+			}
+			.pic{
+				width:236px;
+				box-shadow:0 1px 3px rgba(0,0,0,.3);
+				overflow:hidden;
+				margin-top:10px;
+			}
+		</style>
 	</head>
 	<body>
 		<!--
@@ -38,8 +60,70 @@
 							下面的script可以访问到上面script里面的数据；而上面的script中的数据无法访问到下面script中的数据；
 							script -> src ; 专门解析js代码（jsonp的关键标签）
 							
+							一个script标签内是一个域
+							动态创建script标签是异步的
+							
 							核心：1、数据必须为函数名+()，括号中为实参；如：fn({});
 									2、前端页面中的全局下，要有一个对应数据的函数（function fn(){};）
+									(通过动态创建script标签到页面，相当于调用全局函数，把数据传入到函数的实参中，全局的函数就可以拿到实参的数据了，从而实现跨域请求。用完后要删除标签（1、创建后直接删除；2、在函数内删除）)
+									
+									
+				
+				var img = new Image();
+				img.onload = function(){};
+				img.onerror = function(){};
 		-->
+		<ul>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+		<script src="功能函数/jquery-3.2.1.js"></script>
+		<script>
+			//瀑布流
+			
+			var num=0;
+			var onOff = false;
+			createPic();
+			
+			$(document).scroll(function(){
+				if(onOff){
+					if($('li').eq(minHeight())[0].getBoundingClientRect().bottom <= window.innerHeight){
+						num++;
+						onOff = false;
+						createPic();
+					}
+				}
+			})
+			
+			function createPic(){
+				if(onOff){
+					return;
+				}
+				$.getJSON('http://www.wookmark.com/api/json/popular?callback=?&page='+num,function(arr){
+						$.each(arr,function(i,e){
+							var div = $('<div class="pic">');
+							var img = $(`<img src="${e.preview}"/>`);
+							img[0].onload = function(){
+								div.append(img).appendTo($('li').eq(minHeight()));
+							}
+						})
+						onOff = true;
+				})
+			}
+			function minHeight(){
+				var max = Infinity;
+				var index = null;
+				$('li').each(function(i,e){
+					if(max > e.scrollHeight){
+						max = e.scrollHeight;
+						index = i;
+					}
+				})
+				return index;
+			}
+		</script>
 	</body>
+	
 </html>
