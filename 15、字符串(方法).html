@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<!--
+			内置对象：
+				(1)字符串
+					转义：
+						\ 转义符；\u  转义unicode码；
+					str.length只能获取，不能设置；
+					
+			string.
+					charAt():
+						str.charAt(pos),string:数据类型.方法名(参数,[可选参数]),返回值类型。
+							作用：返回指定位置的字符；
+							参数：pos字符位置，从0开始；不写,默认参数是0
+							注意：当pos小于0或大于length，返回空字符串（没有内容）。
+					charCodeAt():
+						作用：返回指定位置字符的unicode码；
+						参数：pos字符位置，从0开始；	
+					常用unicode码：
+						0~9：48~57(charCodeAt()可以判断是不是数字)；
+						A~Z :65~90;
+						a~z: 97~122;
+					String.fromCharCode(u):可以根据unicode码返回指定字符，u:unicode码；（不用）
+					indexOf(s,[start]):
+						作用：返回从指定位置要查找的字符'首次'出现的位置；如str.indexof('a')；
+						参数：	[start]:可选，从哪位开始查找。
+								s:指定的字符；
+						注意：从左往右找；
+								在设置条件内 没有找到的话 或没有参数，都返回-1。
+					lastIndexOf(s,[start]):
+						作用：返回从指定位置从右往左要查找的字符'首次'出现的位置；
+								[start]:可选，从哪位开始查找，不写， 默认从最后一位开始。
+						注意：从右往左找；
+								在设置条件内 没有找到的话，都返回-1。
+					startsWith(s,[p]):
+						作用：从左往右，从指定位置开始，如果首位是指定字符，返回true,不是，返回false；
+						参数：s:指定字符；string;
+								[p]:位置，默认0;
+					endsWith(s,[p]):
+						作用：从左往右，指定长度的字符最后一位是不是指定字符，如果是指定字符，返回true,不是，返回false；
+						参数：s:指定字符；string;
+								[p]:length长度，默认1;
+					includes(s,[p]):
+						作用：指定位置开始，是否包含指定字符，包含，返回true,不包含，返回false;
+						参数：s:指定字符，string
+								[p]:位置，默认0；
+						
+						
+					slice([start],[end]):
+						作用：截取指定范围内的字符，返回字符串，不包含结束边界；
+						参数：start：开始位置；number
+								end：结束位置,number，不写，默认从起点截取完；
+								都不写，默认截取全部字符
+						注意：从开始位置开始，到结束位置，但不包含结束位置
+								截取不到，返回空字符串，
+								-1是最后一位，
+								
+					substring([start],[end]):
+						作用：截取指定范围内的字符，返回字符串，不包含结束边界；
+						参数：start：开始位置；number
+								end：结束位置,number，不写，默认从起点截取完；
+								都不写，默认截取全部字符
+						注意：从开始位置开始，到结束位置，但不包含结束位置
+								截取不到，返回空字符串;
+								-1是最左边；
+								(1,3) == (3,1);开始位置小于结束位置时，会自动调换位置。
+								
+					substr([start],[length]):
+						作用：从指定位置截取指定长度的字符，返回字符串；
+						参数：start：开始位置；number
+								[length]：长度,截取几个字符；number，不写，默认从起点截取完；
+								都不写，默认截取全部字符
+						注意：从开始位置开始，截取几个字符；
+								截取不到，返回空字符串;
+								-1是最后一位；
+								
+					split([s],[length]):
+						作用：字符串用分隔符分割，把结果放到数组里返回；
+						参数：s:分隔符，string;
+								[length]:保留长度，number;
+						注意：不传参，把整个字符窜作为一项放到数组里返回；
+								分隔符是空字符窜时''，把字符串的每一个字符拆开作为每一项放到数组里；
+								分隔符是字符串里没有的字符时，把整个字符串作为一项放到数组里；
+								分隔符是字符串里的字符时，会用该字符分割字符串，把分割后的每一段作为一项放到数组里。
+								
+				Array.join(),string
+						join([s]):
+							作用：把数组里每一项用分隔符连成一个字符串返回；
+							参数：s:分隔符；不写，默认是逗号；
+							注意：分隔符是空字符串''，数组每一项会紧紧的连为一个字符；
+					可以 用split()和join()做查找、替换功能。
+					
+				string.toUpperCase()
+					toUpperCase()
+						作用：把字符串所有字符变成大写；不改变原字符串。只查找，不能设置
+					toLowerCase()
+						作用：把字符串所有字符变成小写；不改变原字符串。只查找，不能设置
+					trim()
+						作用：只去除字符串前后的空格，中间的不会去除。
+						
+			模版字符串：``;
+				支持换行
+				支持变量等：${};
+			H5新增了添加类名和删除类名的方法：obj.classList.add('list');
+			Math对象：
+				Math.PI == 3.1415....
+				Math.abs(-4)  取绝对值;
+				Math.ceil()   向上取整；
+				Math.floor()  向下取整
+				Math.max(2,4,1,5,8)  取最大值；
+				Math.min()  取最小值；
+				Math.pow(a,b)   a的b次方；
+				Math.sqrt(a,b)  a开b次方；
+				Math.random()  取0~1的随机小数[0,1)；
+				Math.round()   四舍五入;
+			
+			JSON对象：
+				JSON是一种数据交换的格式(长的像对象的'字符串');前后台交换数据
+				两种格式：'{}','[]';只能用单引号，{}[]里面用双引号;
+				'{}'里属性名，字符串 都必须用双引号；'{"name":"小明"，"age":18}'
+				JSON.stringify() 把js对象转为JSON格式的字符串
+				JSON.parse()  把JSON格式的字符串转为js的对象
+				
+					
+		-->
+		<script>
+			//转每个单词首字母大写
+			var str = 'welcome to miaov! thank you.';
+			function upper(){
+				var str2 = '';
+				var val1 = str.split(' ');
+				for(var i=0;i<val1.length;i++){
+					str2 += val1[i].substring(0,1).toUpperCase()+val1[i].substring(1)+' ';
+				}
+				str = str2;
+				return str;
+			}
+			console.log(upper());
+			
+			var str = `<ul>
+			<li></li>
+			<li></li>
+			</ul>`;
+			document.body.innerHTML = str;
+		</script>
+	</body>
+</html>
