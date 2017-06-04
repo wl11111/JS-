@@ -14,7 +14,6 @@
 				margin: 0 auto;
 			}
 			li{
-				width: 240px;
 				float: left;
 				margin: 5px;
 			}
@@ -33,10 +32,10 @@
 				
 			解决跨域名问题：
 					1、高版本浏览器配合请求头信息且给权限：header('Access-Control-Allow-Origin:*');
-						对方php文件里修改
-						<?php
-						header('Access-Control-Allow-Origin:*');//设置请求头信息且给权限
-						echo "hello world";
+						在对方php文件里修改
+							<?php
+							header('Access-Control-Allow-Origin:*');//设置请求头信息且给权限
+							echo "hello world";
 						
 					2、服务器代理：
 							服务器语言可以访问到外域的文件，自身的文件与服务器的文件在同域，服务器文件可以直接访问到外域的文件，所以自身文件可以直接访问外域的文件；
@@ -52,6 +51,7 @@
 						通过iframe的src来链接想要引入的外域文件
 						
 					4、flash跨域
+							比较繁琐
 					
 					5、jsonp:跨域
 							json + padding = jsonp
@@ -81,7 +81,17 @@
 		</ul>
 		<script src="功能函数/jquery-3.2.1.js"></script>
 		<script>
-			
+			/*
+			 	一张图的宽度
+			 	可视区宽
+			 	图片间距
+			 	找最小的数字：Math.min() -> Math.min.apply(null,[]);数组得同apply转下
+			 	
+			 	数组下的方法，找下标
+			 	arr.findIndex(function(a){
+			 		return a == 4;//条件成立  返回 下标；没有就返回-1
+			 	})
+			 */
 			//瀑布流
 			
 			var num=0;
@@ -104,10 +114,11 @@
 				}
 				console.log(onOff)
 				$.ajax({
-					url:'http://www.wookmark.com/api/json/popular',
+					url:'http://www.wookmark.com/api/json/popular?callback=?',
 					dataType:'jsonp',
-					callback:'callback',
-					page:num,
+					data:{
+						page:num
+					}
 					success:function(arr){
 						$.each(arr,function(i,e){
 							var div = $('<div class="pic">');
@@ -141,6 +152,8 @@
 				})
 				return index;
 			}
+			var arr = [1,2,3,4];
+			cosole.log(Math.min(arr))
 		</script>
 	</body>
 	
