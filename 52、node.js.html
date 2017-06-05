@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<!--
+			进入D盘：d:
+			进入文件夹：cd "文件夹名"
+			回退：cd ..
+			清屏：cls6
+			结束本次服务：ctrl + C
+			运行js文件： node 文件名
+			
+			模块化：
+				sea.js
+					1、引入sea.js文件
+					2、每个js文件中写define(function(require,exports,module){
+						require('文件1')
+						require('文件2')
+						exports.c = a+b;//输出 相应的值
+					})
+					3、seajs.use(参数1,参数2) //去调用；
+						参数1：要使用的哪个js文件；
+						参数2：function(c){}; c : 就是这个js文件输出的数据；
+						
+			
+			//node
+			//创建自己的服务器
+			const http = require('http');//引入http模块
+			const fs = require('fs');//引入fileSystem模块
+			const server = http.createServer(function(require,response){
+				//require请求；浏览器发给服务器的
+				//response回复；服务器返回给浏览器的信息
+				
+				//console.log('呵呵哒。。。')
+				
+				if(response.url == '/favicon.ico'){
+					return;
+				}
+				//fs.readFile 读文件
+				//fs.writeFile 写文件
+				fs.writeFile('文件名','写入的数据',回调函数function(error,data){
+					
+				});//可以创建文件1.txt
+				fs.writeFile('文件路径',回调函数function(error,data){
+					显示文件内容
+						console.log(data.toString())
+						或
+						response.write(data);
+						response.end()
+				})
+				
+				
+				//中文会有乱码
+				response.write('hello world');//向客户端发送东西；可以在网页的页面中显示				
+				response.end();//发送完毕
+				
+				//console.log(require.url);//可以拿到请求路径
+			})
+			server.listen(888);//监听；	80端口号（任意写）
+			
+		-->
+		
+		<script>
+			//node
+			//创建自己的服务器
+			const http = require('http');//http模块
+			const server = http.createServer(function(require,response){
+				//require请求；浏览器发给服务器的
+				//response回复；服务器返回给浏览器的信息
+				
+				//console.log('呵呵哒。。。')
+				
+				//中文会有乱码
+				response.write('hello world');//向客户端发送东西；可以在网页的页面中显示				
+				response.end();//发送完毕
+				
+				//console.log(require.url);//可以拿到请求路径
+			})
+			server.listen(888);//监听；	80端口号（任意写）
+			
+		</script>
+	</body>
+</html>
