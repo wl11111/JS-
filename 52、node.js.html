@@ -26,7 +26,7 @@
 						参数2：function(c){}; c : 就是这个js文件输出的数据；
 						
 			
-			//node
+		node
 			//创建自己的服务器
 			const http = require('http');//引入http模块
 			const fs = require('fs');//引入fileSystem模块
@@ -36,28 +36,30 @@
 				
 				//console.log('呵呵哒。。。')
 				
+				//中文会有乱码
+				response.write('hello world');//向客户端发送东西；可以在网页的页面中显示				
+				response.end();//发送完毕
+				
+				//console.log(require.url);//可以拿到请求路径
+				
+				
 				if(response.url == '/favicon.ico'){
 					return;
 				}
 				//fs.readFile 读文件
 				//fs.writeFile 写文件
-				fs.writeFile('文件名','写入的数据',回调函数function(error,data){
-					
-				});//可以创建文件1.txt
-				fs.writeFile('文件路径',回调函数function(error,data){
+				
+				fs.writeFile('文件名(1.txt)','写入的数据',回调函数function(error,data){
+					//可以创建文件1.txt
+				});
+				
+				fs.readFile('文件路径',回调函数function(error,data){
 					显示文件内容
 						console.log(data.toString())
 						或
 						response.write(data);
 						response.end()
 				})
-				
-				
-				//中文会有乱码
-				response.write('hello world');//向客户端发送东西；可以在网页的页面中显示				
-				response.end();//发送完毕
-				
-				//console.log(require.url);//可以拿到请求路径
 			})
 			server.listen(888);//监听；	80端口号（任意写）
 			
