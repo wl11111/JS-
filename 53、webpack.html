@@ -19,7 +19,7 @@
 			    
 			    
 			    
-			//浏览器不支持es6时
+			//浏览器不支持es6时 转为 es5 的语法
 			
 			
 			1、项目初始化:
@@ -45,7 +45,8 @@
 			 
 			6、package文件中添加：
 				    scripts:{
-				      "nizp":"webpack"
+				      "nizp":"webpack"	//需要手动run 
+				      //"nizp":"webpack -w"  //自动化刷新，不用每次手动run
 				    }
 				    
 			7、cmd 中运行 webpack
