@@ -21,9 +21,8 @@
 			    
 			//浏览器不支持es6时 转为 es5 的语法
 			
-			
 			1、项目初始化:
-			    npm init  //创建一个 package.json 文件，用于保存项目版本、依赖关系等
+			    npm init  //会创建一个 package.json 文件，用于保存项目版本、依赖关系等
 			    
 			2、在项目中安装本地webpack
 			    npm install webpack --save(全写)
@@ -41,7 +40,32 @@
 			      webpack.config.js
 			      
 			5、配置webpack.config.js文件
-			   
+			   	const path = require('path');
+			   	module.exports = {
+  						entry:'./app.js',
+  						//或
+					  //entry:{
+					  //	paa:'./app.js'
+					  //},
+  						output:{
+						    filename:'app.js',
+						    //或
+						    //filename:'[name].js'   name -- paa；name就是entry里的key:ppa
+						    path: path.resolve(__dirname, 'build')//__dirname绝对路径，当前目录
+						 },
+						 module:{
+						    rules:[
+						      {
+						        test:/\.js$/,
+						        use:[
+							        {
+							          loader:'babel-loader'
+							        }
+						        ]
+						      },
+						     ]
+						  }
+						}
 			 
 			6、package文件中添加：
 				    scripts:{
@@ -51,6 +75,67 @@
 				    
 			7、cmd 中运行 webpack
 					npm run nizp
+					
+			此时可以监听入口文件的改变，实时刷新页面，然而非入口文件的改变则不会被监听到，需要手动进行刷新。并且目标文件不包括index.html。这里使用html-webpack-plugin插件。		
+			8、安装自动在html文件中引入js文件的插件html-webpack-plugin
+				npm i html-webpack-plugin -S
+				修改webpack配置文件，添加以下配置：
+					...
+					const HtmlWebpackPlugin = require('html-webpack-plugin');
+					module.exports = {
+					  ....
+				    plugins: [
+			        new HtmlWebpackPlugin({
+			        		filename:'test.html', // 打包好的build文件夹下会创建test.html；../可以在上一层目录创建
+			            template: './1.html' // 引自己原始的模版文件路径
+			        })
+				    ]
+					}
+					
+			9、安装css插件自动引css
+				1)、npm i style-loader css-loader -S		//在html中看不到<link>的css文件
+					(js文件中要引入css文件：require('./1.css'))
+						修改webpack配置文件，添加以下配置
+						....
+						module.exports = {
+						  module: {
+						    rules: [
+						      {
+						        test: /\.css$/,
+						        use:[
+							       		'style-loader', 'css-loader',
+							     ]
+						      }
+						    ]
+						  }
+						}
+				2)、npm i extract-text-webpack-plugin -S   //可以在html中看到<link>的css文件
+						修改webpack配置文件，添加以下配置：
+						const ExtractTextPlugin = require("extract-text-webpack-plugin");
+						....
+						module.exports = {
+						  module: {
+						    rules: [
+						      {
+						        test: /\.css$/,
+						        //use:[
+							     // 		'style-loader', 'css-loader',
+							    // ]
+						        use: ExtractTextPlugin.extract({
+						          fallback: "style-loader",
+						          use: "css-loader"
+						        })
+						      }
+						    ]
+						  },
+						  plugins: [
+						    new ExtractTextPlugin("1.css")
+						  ]
+						}
+						参数：
+							use:指需要什么样的loader去编译文件,这里由于源文件是.css所以选择css-loader
+							fallback:编译后用什么loader来提取css文件
+							publicfile:用来覆盖项目路径,生成该css文件的文件路径
 		-->
 	</body>
 </html>
