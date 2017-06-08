@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<!--
+			
+		v-for=""
+			不管是数组还是对象都是in来遍历;
+				如果是数组 val in data ：
+					这个val是数组的每一项；<li v-for="val in list">{{val}}</li>;
+					如果找下标：val,index in data; <li v-for="val,index in list">{{index}}:{{val}}</li>;
+				如果是对象：val,key in data;<li v-for="val,key in list">{{key}}:{{val}}</li>;
+			
+			
+		v-model=""
+			可以双向数据绑定
+			<input type="checkbox" v-model="val.check" />
+			输入框时：
+				可以有修饰符：
+					.number	输入的字符转为数字; 与parseFloat相似，但转不了的话，就是输入的字符串；
+					.trim 去除首尾空格; 
+					修饰符可以连写：v-model.trim.number=""
+				
+		绑定class类名：
+			v-bind:class="{类名:布尔值}";
+			 或
+			v-bind:class="[data的key值]";
+			v-bind:style="{}";
+			
+		事件绑定：
+			v-on:click="事件绑定函数"；v-on:click="fn"
+			缩写：@clic="事件绑定函数"
+			事件函数一般写在methods:{}中，里面的this指向实例化对象即v
+				methods:{
+					fn(参数1，$event){
+						//this指向v
+						//可以传参
+						//$event就是ev
+					}
+				}
+			
+			@keyup.13=""或@keyup.enter="";回车事件；（写相应的键值）；
+			
+			阻止冒泡：
+				@click.stop="事件函数";
+			阻止默认行为：
+				@click.prevent="事件函数";
+			只触发一次事件
+				@click.once = "事件函数";
+				可以连写：@click.stop.once = "事件函数";
+				
+			计算属性：
+				computed:{}
+				当某个数据发生变化时需要处理的行为，就可以使用computed，computed里的属性是依赖与某个数据的，当数据发生变化才会更改这个属性的值；
+				与methods的区别：
+					methods只要函数调用就会执行
+					computed某个数据发送变化才执行
+				computed:{
+					fn:function(){
+						return 'asd'
+					}
+				}
+				或
+				拆分为get 和 set
+				computed:{
+					fn:{
+						get:function(){
+							//依赖数据发送变化时触发get
+							//写更改的逻辑
+							return 'asd'
+						},
+						set:function(newVal){
+							//当这个计算属性(fn)发送变化时才会触发
+							//设置
+							//newVal就是 下面的'adf'
+						}
+					}
+				}
+				调用：v.fn = 'adf'
+		-->
+		<div id="temp">
+			<ul>
+				<!--<li v-for="val,key in list">{{val}}</li>-->
+				<li v-for="val,key in list">{{key}}:{{val}}</li>
+			</ul>
+		</div>
+		<script src="功能函数/vue.js"></script>
+		<script>
+			//console.log(Vue);
+			var v = new Vue({
+				el:'#temp',
+				data:{
+					//list:[1,2,3,4]
+					list:{
+						a:1,
+						b:2,
+						c:3
+					}
+				},
+				methods:{
+					fn(){}
+				},
+				computed:{
+					fn(){}
+				}
+			})
+			setTimeout(function(){
+				v.list = {
+					a:1,
+					b:2,
+					c:3,
+					d:4,
+					e:5
+				}
+			},2000)
+		</script>
+	</body>
+</html>
