@@ -20,7 +20,7 @@
 			<input type="checkbox" v-model="val.check" />
 			输入框时：
 				可以有修饰符：
-					.number	输入的字符转为数字; 与parseFloat相似，但转不了的话，就是输入的字符串；
+					.number	输入的字符转为数字类型; 与parseFloat相似，但转不了的话，就是输入的字符串；
 					.trim 去除首尾空格; 
 					修饰符可以连写：v-model.trim.number=""
 				
@@ -54,7 +54,7 @@
 				
 			计算属性：
 				computed:{}
-				当某个数据发生变化时需要处理的行为，就可以使用computed，computed里的属性是依赖与某个数据的，当数据发生变化才会更改这个属性的值；
+				当某个数据发生变化时需要处理的行为，就可以使用computed，computed里的属性是依赖于某个数据的，当数据发生变化才会更改这个属性的值；
 				与methods的区别：
 					methods只要函数调用就会执行
 					computed某个数据发送变化才执行
