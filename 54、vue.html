@@ -16,7 +16,12 @@
 			
 			
 		v-model=""
-			可以双向数据绑定
+			随表单控件类型不同而不同。
+			限制：<input>
+					<select>
+					<textarea>
+					components
+			在表单控件或者组件上创建双向绑定；可以双向数据绑定
 			<input type="checkbox" v-model="val.check" />
 			输入框时：
 				可以有修饰符：
@@ -80,6 +85,24 @@
 					}
 				}
 				调用：v.fn = 'adf'
+				
+				
+		
+		条件渲染：
+				v-if=""
+				v-else=""
+				v-else-if="" //要紧跟在v-if的后面
+				
+				如果频繁操作dom的显示或隐藏，那么建议使用v-show="条件"
+				
+				本地存储通过watch的深度监听来监控数据的变化，当数据发生变化时，把新的数据放到本地
+				watch:{
+					list:{
+						
+					}
+				}
+				
+		组件		
 		-->
 		<div id="temp">
 			<ul>
