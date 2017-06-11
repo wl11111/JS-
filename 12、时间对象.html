@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>日期对象</title>
+	</head>
+	<body>
+		<!--
+			
+			日期对象
+				new Date():记录当前的时间信息，时间戳，代码执行的这一刻的时间信息；
+			设置时间：
+				括号里写具体数字时，表示距离1970.1.1的毫秒差。
+				月份是从0~11，表示12个月；
+				数字：年，月，日，时，分，秒 ； new Date(2017,2,16,10,34,0)
+				字符串：'年-月-日 空格 时：分：秒'； new Date('2017-10-23 10:12:22')
+			获取时间：（获取到的是本地时间）
+				var date = new Date();
+					date.getFullYear();			获取年
+					date.getMonth();	      	获取月份0~11，再加1，是真实月份；
+					date.getDate();				获取日
+					date.getDay();					获取星期数；0~6； 星期日是 0；
+					date.getHours();				获取时
+					date.getMinutes();			获取分
+					date.getSeconds();			获取秒
+					date.getMilliseconds();		获取毫秒
+					
+						getTime() 当前时间到1970年1月1日0点0分0秒的毫秒差。
+			设置时间：（设置的是本地时间，星期无法设置）
+				var date = new Date();
+					date.setFullYear();			设置年
+					date.setMonth();	      	设置月份 真实月份再减1；
+					date.setDate();				设置日
+					date.setHours();				设置时
+					date.setMinutes();			设置分
+					date.setSeconds();			设置秒
+					date.setMilliseconds();		设置毫秒
+				假如：2月只有28天，设置了2月30日，系统会自动调整为3月2日
+			
+			获取本月有几天：（先设置日期为1）月份设置为下个月，日期设置为0；系统会自动跳转为本月的最后一天。
+			
+			字符串第几位是什么字符：
+				var str = '字符串'
+				str[0] => 字
+				str.charAt(0) => 字
+				
+			
+		-->
+		<script>
+			var arr = [2017,3,16,14,3,50];
+			function timeStyle(data,n){
+				var arr2 = ['年月日时分秒','-- :: ','// :: '];
+				n = n || 0;  //不传参或者0 时，为默认'年月日时分秒'
+				var str ='';
+				for(var i=0;i<data.length;i++){
+					str += tab(data[i])+arr2[n][i];
+				}
+				function tab(m){
+					return m<10?'0'+m:''+m;
+				}
+				return str;
+			}
+			
+			var v = timeStyle(arr);
+			console.log(v)
+		</script>
+	</body>
+</html>
