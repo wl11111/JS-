@@ -102,7 +102,81 @@
 					}
 				}
 				
-		组件		
+				
+				
+		组件:
+			父级通过props把数据传给子级（单向数据流），子级通过事件Emit Events可以修改父级数据；
+			如果这样去操作子数据的话，会报错，"可以把父级的数据转为子级自己的数据"：data(){return {num=this.number(父级数据)}},这样不会报错；但不会改变父级数据。
+			
+			可以用Emit方法：
+				vm.$emit('change',this.number)
+				参数：
+					参数1：任意写；相当于自己定义一个事件
+					参数2：可以传递若干个参数
+			
+			
+			<div id="app">
+				<my-zujian :num="number"></my-zujian>
+				<div>{{nnum}}</div>
+			</div>
+			
+			
+			Vue.component('my-zujian',{
+				props:['num'],
+				data(){
+					return {
+						nnum = '我是子数据';
+					}
+				}
+				template:'<div>{{num}}</div>'
+			})
+			
+			new Vue({
+				el:'#app',
+				data:{
+					number:'我父数据'
+				}
+			})
+			
+			
+			ref:
+				给组件或模版元素加上一个唯一的标识，可以通过$refs去直接获取
+				设置：ref="xx"  获取：vm.$refs.xx
+				同名的标记有多个，后面设置的会把前面的覆盖，只能获取最后一个
+				
+				
+			slot分发内容
+				slot在模版template中创建，可以设置为默认样式，有配置走配置，没配置走默认；不管哪种都要有<slot></slot>标签，不然没效果。
+				<div id="app">
+					<my-box>
+						<p>我哈</p> //配置的内容
+						<div>哈哈哈</div> //配置的内容
+					</my-box>
+				</div>
+				
+				template:'<div><slot><span>我是算咯</span></slot></div>';//slot是默认的内容
+				页面有多个slot时，要给slot加上name="1"等属性，并在定制时加slot="1";slot="2"等去对应;每个定制都要写一个slot;下面的方法可以只写一个slot：
+					或 插槽:
+					<template slot="1">
+						<p>1</p>
+						<p>2</p>
+					</template>
+									
+			
+			动态组件：
+				components
+				
+				
+				
+			vue-cli
+				// 全局安装 vue-cli
+					npm i vue-cli -g
+				//创建一个基于 webpack 模板的新项目
+					vue init webpack 项目名
+				//安装依赖，走你
+					cd 项目名
+					npm install
+					npm run dev
 		-->
 		<div id="temp">
 			<ul>
