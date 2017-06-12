@@ -165,6 +165,52 @@
 			
 			动态组件：
 				components
+				 组件提供了一个components的属性，这个属性可以设置多套模板，把模板的名字写进这个对象中即可；
+				这个时候需要提前定义一个状态，比如：currentView；当某个事件触发的时候去改变currentView，这个时候就会切换对应的视图。
+				在目录树中，组件的名字可以随便取，通过:is="设置状态"去监听状态的变化；从而达到切换view的目的
+				
+				小技巧：
+				      官方提供了一个keep-alive，这个标签可以将已切换过的视图缓存一遍，
+				      能够提高性能。所以遇到切换就包keep-alive
+				
+				<div id="app">
+				    <input type="button" value="第一个" @click="tab(1)" :class={active:val==1}>
+				    <input type="button" value="第二个" @click="tab(2)" :class={active:val==2}>
+				    <input type="button" value="第三个" @click="tab(3)" :class={active:val==3}>
+				    <keep-alive>
+				      <hehe v-bind:is="currentView"></hehe>//目录树
+				    </keep-alive>
+			   </div>
+				
+				
+				 const home1 = {
+				    template:'<div>第一个模块</div>'
+				  }
+				  const home2 = {
+				    template:'<div>第二个模块</div>'
+				  }
+				  const home3 = {
+				    template:'<div>第三个模块</div>'
+				  }
+				
+				new Vue({
+				    el:'#app',
+				    data:{
+				      currentView:'home1',
+				      val:1
+				    },
+				    components:{
+				      home1,
+				      home2,
+				      home3
+				    },
+				    methods:{
+				      tab(num){
+				        this.currentView = 'home' + num;
+				        this.val = num;
+				      }
+				    }
+				});
 				
 				
 				
