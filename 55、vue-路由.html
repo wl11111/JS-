@@ -22,18 +22,32 @@
 			//安装vue-router
 				npm i vue-router -S
 				
-			//main.js中引入router
+			//main.js中引入router等文件
+			import Vue from "vue";
+			import App from "./app"
+			import router from "./router/index";
+			
 				new Vue({
 				  el: '#app',
 				  router,
 				  template: '<App/>',
 				  components: { App }
 				})
+				
 			//app.vue文件写：
-			<router-link to="/hello2" tag="button">切换到hello2</router-link> // tag写想要的标签
-			<router-view></router-view> //路由渲染的地方
+			<template>
+				<div>
+					<router-link to="/hello2" tag="button">切换到hello2</router-link> // tag写想要的标签
+					<keep-alive>
+						<router-view></router-view> //路由渲染的地方
+					</keep-alive>
+				</div>
+			</template>
+			export default {
+				name:'App'
+			}
 			
-			//路由js文件里，引入文件
+			//路由index.js文件里，引入文件
 			import Vue from 'vue';
 			import Router from 'vue-router';
 			
@@ -67,7 +81,7 @@
 			    }
 			  ]
 			export default new Router({
-				//mode:'history',h5的数据，如果不写，切换时地址栏的效果是hash的形式，写的话，和后端路由相当。
+				mode:'history',//h5的数据，如果不写，切换时地址栏的效果是hash的形式，写的话，和后端路由相当。
 				routes
 			});
 			
