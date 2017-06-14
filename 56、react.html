@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.active{
+				background:red;
+			}
+		</style>
+	</head>
+	<body>
+		<!--
+			react 虚拟DOM
+				用js对象去模拟一个DOM树，通过差异对比，把差异的部分渲染到页面上。
+				
+					<!DOCTYPE html>
+					<html>
+					  <head>
+					    <script src="../build/react.js"></script>
+					    <script src="../build/react-dom.js"></script>
+					    <script src="../build/browser.min.js"></script>
+					  </head>
+					  <body>
+					    <div id="example"></div>
+					    <script type="text/babel">
+					      // ** Our code goes here! **
+					    </script>
+					  </body>
+					</html>
+					
+			ES6版：
+				1、安装webpack所有相关（babel-loader,babel-core等）
+				2、创建webpack.config.js文件并配置
+						exclude:->排除检索文件，提高性能
+				3、安装react相关
+				4、
+		-->
+		
+		<div id="app">
+			
+		</div>
+		
+		<script src="react.js"></script>
+		<script src="react-dom.js"></script>
+		<script src="browser.min.js"></script>
+			
+		<script type="text/babel">
+			/*let H = React.createElement(
+				'h1',
+				{className:'active'},
+				'你好世界'
+			)
+			ReactDOM.render(
+				H,
+				document.getElementById('app')
+			)*/
+			
+			let H2 = React.createClass({
+				render:function(){
+					return (
+						<div>
+							<button onClick={this.add}>点击加1</button>
+							<p>{this.state.num}</p>
+						</div>
+					)
+				},
+				getInitialState:function(){
+					return {
+						num:0
+					}
+				},
+				add:function(){
+					this.setState({
+						num:++this.state.num
+					})
+				}
+			});
+			ReactDOM.render(
+				<H2 />,
+				document.getElementById('app')
+			)
+		</script>
+	</body>
+</html>
