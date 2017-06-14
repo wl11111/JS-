@@ -30,9 +30,14 @@
 					</html>
 					
 			ES6版：
-				1、安装webpack所有相关（babel-loader,babel-core等）
-						webpack; babel-loader; babel-core; css-loader; style-loader; extract-text-webpack-plugin; html-webpack-plugin;
-				2、创建webpack.config.js文件并配置
+				1、初始化项目npm init
+					安装webpack所有相关（babel-loader,babel-core等）
+						npm i ... -S
+							webpack; babel-loader; babel-core; css-loader; style-loader; extract-text-webpack-plugin; html-webpack-plugin;
+				2、安装react相关
+					npm i ... -S
+						babel-plugin-react-transform; babel-preset-env; babel-preset-react; react; react-dom;
+				3、创建webpack.config.js文件并配置
 						const path = require('path');
 						const link = require('extract-text-webpack-plugin');
 						const html = require('html-webpack-plugin');
@@ -77,9 +82,9 @@
 						  ]
 						}
 						
-				3、安装react相关
-						babel-plugin-react-transform; babel-preset-env; babel-preset-react; react; react-dom;
-				4、
+				
+				4、package.json文件中添加:"dev":"webpack -w"
+					运行npm run dev
 		-->
 		
 		<div id="app">
