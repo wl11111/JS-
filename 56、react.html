@@ -31,9 +31,54 @@
 					
 			ES6版：
 				1、安装webpack所有相关（babel-loader,babel-core等）
+						webpack; babel-loader; babel-core; css-loader; style-loader; extract-text-webpack-plugin; html-webpack-plugin;
 				2、创建webpack.config.js文件并配置
-						exclude:->排除检索文件，提高性能
+						const path = require('path');
+						const link = require('extract-text-webpack-plugin');
+						const html = require('html-webpack-plugin');
+						module.exports = {
+						  entry:{
+						    main:'./main.js'
+						  },
+						  output:{
+						    filename:'[name].js',
+						    path:path.resolve(__dirname,'build/src')
+						  },
+						  module:{
+						    rules:[
+						      {
+						        test:/\.js$/,
+						        use:[
+						          {
+						            loader:'babel-loader',
+						            options:{
+						              presets:['env','react']
+						            }
+						          }
+						        ],
+						        exclude:[path.resolve(__dirname,'node_modules')]
+						      },
+						      {
+						        test:/\.css$/,
+						        use:link.extract({
+						          fallback:'style-loader',
+						          use:'css-loader'
+						        }),
+						        exclude:[path.resolve(__dirname,'node_modules')]	//排除检索文件，提高性能
+						      }
+						    ]
+						  },
+						  plugins:[
+						    new html({
+						      filename:'../index.html',
+						      template:'index.html'
+						    }),
+						    new link('index.css')
+						  ]
+						}
+						
 				3、安装react相关
+						babel-plugin-react-transform; babel-preset-env; babel-preset-react; react; react-dom;
 				4、
 		-->
 		
